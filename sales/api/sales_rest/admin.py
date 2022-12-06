@@ -20,4 +20,3 @@ class AutomobileVOAdmin(admin.ModelAdmin):
 @admin.register(SaleRecord)
 class SaleRecordAdmin(admin.ModelAdmin):
     pass
-
