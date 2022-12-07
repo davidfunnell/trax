@@ -51,7 +51,7 @@ def api_list_service_appointments(request, input_vin=None):
         else:
             service_appointments = ServiceAppointment.objects.all()
         return JsonResponse(
-            {"service appointments": service_appointments},
+            {"appointments": service_appointments},
             encoder=ServiceAppointmentsListEncoder,
         )
     else:
@@ -133,6 +133,6 @@ def api_list_inventory_vins_vo(request):
     if request.method == "GET":
         inventory_vins_vo = InventoryVinsVO.objects.all()
         return JsonResponse(
-            {"inventory vo vins": inventory_vins_vo},
+            {"inventory_vo_vins": inventory_vins_vo},
             encoder=InventoryVOEncoder,
         )

@@ -2,71 +2,84 @@ import React from 'react';
 
 
 class ServiceList extends React.Component {
-    // constructor(props) {
-    //     super(props)
+    constructor(props) {
+        super(props)
 
-    //     this.state = {
-    //         hats: [],
-    //     }
-    //     this.fetchHats = this.fetchHats.bind(this);
-    //     this.handleDelete = this.handleDelete.bind(this);
-    // }
+        this.state = {
+            appointments: [],
+        }
+        this.fetchAppointments = this.fetchAppointments.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
 
-    // componentDidMount() {
-    //     this.fetchHats();
-    // }
+    componentDidMount() {
+        this.fetchAppointments();
+    }
 
-    // async handleDelete(href){
-    //     const locationUrl = `http://localhost:8090${href}`;
-    //     const fetchConfig = {
-    //       method: "delete",
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     };
-    //     const response = await fetch(locationUrl, fetchConfig);
-    //     if (response.ok) {
-    //       const deleteHat = await response.json();
-    //       console.log(deleteHat);
-    //       this.fetchHats();
-    //     }
-    // }
+    async handleDelete(id){
+        const serviceUrl = `http://localhost:8080/api/service/${id}/`;
+        const fetchConfig = {
+          method: "delete",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const response = await fetch(serviceUrl, fetchConfig);
+        if (response.ok) {
+          const deleteService = await response.json();
+          console.log(deleteService);
+          this.fetchAppointments();
+        }
+    }
 
-    // async fetchHats() {
-    //     const response = await fetch('http://localhost:8090/api/hats/')
-    //     if (response.ok) {
-    //         const data = await response.json()
-    //         this.setState({hats: data.hats})
-    //     }
-    // }
+    async fetchAppointments() {
+        const response = await fetch('http://localhost:8080/api/service/')
+        if (response.ok) {
+            const data = await response.json()
+            this.setState({appointments: data.appointments})
+        }
+    }
 
     render() {
         return (
-            <p>Service List</p>
-            // <table className="table table-striped">
-            //     <thead>
-            //         <tr>
-            //             <th>Fabric</th>
-            //             <th>Style</th>
-            //             <th>Color</th>
-            //             <th>Location</th>
-            //             <th>Delete</th>
-            //         </tr>
-            //     </thead>
-            //     <tbody>
-            //         {this.state.hats.map(hat => {
-            //             return (
-            //                 <tr key={hat.id}>
-            //                     <td>{hat.fabric}</td>
-            //                     <td>{hat.style}</td>
-            //                     <td>{hat.color}</td>
-            //                     <td>{hat.location.closet_name}</td>
-            //                     <td><button onClick={() => this.handleDelete(hat.href)} className="btn btn-primary">Delete</button></td>
-            //                 </tr>
-            //             );
-            //         })}
-            //     </tbody>
-            // </table>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Vin</th>
+                        <th>Customer name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Technician</th>
+                        <th>Reason</th>
+                        <th>Cancel</th>
+                        <th>Finished</th>
+                        <th>Purchased here</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.state.appointments.map(appointment => {
+                        let purchase = ""
+                        if(appointment.purchased === true){
+                            purchase = "Yes"
+                        } else {
+                            purchase = "No"
+                        }
+                        return (
+                            <tr key={appointment.id}>
+                                <td>{appointment.vin}</td>
+                                <td>{appointment.owner_name}</td>
+                                <td>{appointment.date}</td>
+                                <td>{appointment.time}</td>
+                                <td>{appointment.technician.name}</td>
+                                <td>{appointment.description}</td>
+                                <td><button onClick={() => this.handleDelete(appointment.id)} className="btn btn-danger">Cancel</button></td>
+                                <td><button onClick={() => this.handleDelete(appointment.id)} className="btn btn-success">Finished</button></td>
+                                <td>{purchase}</td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
 
     );
     }
