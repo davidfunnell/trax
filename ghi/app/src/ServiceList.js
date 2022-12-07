@@ -26,8 +26,8 @@ class ServiceList extends React.Component {
         };
         const response = await fetch(serviceUrl, fetchConfig);
         if (response.ok) {
-          const deleteService = await response.json();
-          console.log(deleteService);
+        //   const deleteService = await response.json();
+        //   console.log(deleteService);
           this.fetchAppointments();
         }
     }
@@ -60,7 +60,7 @@ class ServiceList extends React.Component {
                     {this.state.appointments.map(appointment => {
                         let purchase = ""
                         if(appointment.purchased === true){
-                            purchase = "Yes"
+                            purchase = "Yes - VIP TREATMENT"
                         } else {
                             purchase = "No"
                         }

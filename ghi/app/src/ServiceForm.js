@@ -29,7 +29,7 @@ class ServiceForm extends React.Component {
       delete data.ownerName;
       delete data.technicians;
       delete data.created
-      console.log(data)
+      // console.log(data)
 
       const serviceUrl = 'http://localhost:8080/api/service/';
       const fetchConfig = {
@@ -41,8 +41,8 @@ class ServiceForm extends React.Component {
       };
       const response = await fetch(serviceUrl, fetchConfig);
       if (response.ok) {
-        const newService = await response.json();
-        console.log(newService);
+        // const newService = await response.json();
+        // console.log(newService);
 
         const cleared = {
           vin: '',
