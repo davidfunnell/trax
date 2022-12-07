@@ -8,6 +8,14 @@ from .models import InventoryVinsVO, Technician, ServiceAppointment
 
 # Create your views here.
 
+class InventoryVOEncoder(ModelEncoder):
+    model = InventoryVinsVO
+    properties = [
+        "vin_vo",
+        "id",
+    ]
+
+
 class TechnicianEncoder(ModelEncoder):
     model = Technician
     properties = [
@@ -124,3 +132,13 @@ def api_list_technicians(request):
             )
             response.status_code = 400
             return response
+
+
+@require_http_methods(["GET", "POST"])
+def api_list_inventory_vins_vo(request):
+    if request.method == "GET":
+        inventory_vins_vo = InventoryVinsVO.objects.all()
+        return JsonResponse(
+            {"inventory vo vins": inventory_vins_vo},
+            encoder=InventoryVOEncoder,
+        )

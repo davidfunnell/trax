@@ -22,6 +22,7 @@ class ServiceAppointment(models.Model):
     time = models.TimeField()
     description = models.TextField()
     purchased = models.BooleanField()
+    #might need to add a boolean field with finished for appointment status
     technician = models.ForeignKey(
         Technician,
         related_name="technician",
