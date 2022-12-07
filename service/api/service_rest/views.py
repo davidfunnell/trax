@@ -58,15 +58,12 @@ def api_list_service_appointments(request, input_vin=None):
         )
     else:
         content = json.loads(request.body)
-        # delete purchased true and implement below once I get polling working.
-        # try:
-        #     purchased = InventoryVinsVO.objects.get(vin_vo=content["vin"])
-        #     content["purchased"] = True
-        # except InventoryVinsVO.DoesNotExist:
-        #     content["purchased"] = False
-
         try:
-            content["purchased"] = True
+            try:
+                purchase = InventoryVinsVO.objects.get(vin_vo=content["vin"])
+                content["purchased"] = True
+            except InventoryVinsVO.DoesNotExist:
+                content["purchased"] = False
             technician = Technician.objects.get(id=content["technician"])
             content["technician"] = technician
             service = ServiceAppointment.objects.create(**content)
