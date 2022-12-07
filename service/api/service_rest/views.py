@@ -37,10 +37,10 @@ class ServiceAppointmentsListEncoder(ModelEncoder):
 #This function gets both hats by locations and all hats
 #This function allows you to create a hat with a locationVO
 @require_http_methods(["GET", "POST"])
-def api_list_service_appointments(request, vin=None):
+def api_list_service_appointments(request, input_vin=None):
     if request.method == "GET":
-        if vin is not None:
-            service_appointments = ServiceAppointment.objects.filter(vin=vin)
+        if input_vin is not None:
+            service_appointments = ServiceAppointment.objects.filter(vin=input_vin)
         else:
             service_appointments = ServiceAppointment.objects.all()
         return JsonResponse(
