@@ -19,42 +19,43 @@ class ServiceForm extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleTechnicianChange = this.handleTechnicianChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  //   async handleSubmit(event) {
-  //     event.preventDefault();
-  //     const data = {...this.state};
-  //     data.picture_url = data.pictureUrl;
-  //     delete data.pictureUrl;
-  //     delete data.locations;
-  //     delete data.created
-  //     console.log(data)
+    async handleSubmit(event) {
+      event.preventDefault();
+      const data = {...this.state};
+      data.owner_name = data.ownerName;
+      delete data.ownerName;
+      delete data.technicians;
+      delete data.created
+      console.log(data)
 
-  //     const locationUrl = 'http://localhost:8090/api/hats/';
-  //     const fetchConfig = {
-  //       method: "post",
-  //       body: JSON.stringify(data),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     };
-  //     const response = await fetch(locationUrl, fetchConfig);
-  //     if (response.ok) {
-  //       const newHat = await response.json();
-  //       console.log(newHat);
+      const serviceUrl = 'http://localhost:8080/api/service/';
+      const fetchConfig = {
+        method: "post",
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await fetch(serviceUrl, fetchConfig);
+      if (response.ok) {
+        const newService = await response.json();
+        console.log(newService);
 
-  //       const cleared = {
-  //         fabric: '',
-  //         style: '',
-  //         color: '',
-  //         pictureUrl: '',
-  //         location: '',
-  //         created: true,
-  //       };
-  //       this.setState(cleared);
-  //     }
-  //   }
+        const cleared = {
+          vin: '',
+          ownerName: '',
+          date: '',
+          time: '',
+          description: '',
+          technician: '',
+          created: true,
+        };
+        this.setState(cleared);
+      }
+    }
 
   handleVinChange(event) {
     const value = event.target.value;
