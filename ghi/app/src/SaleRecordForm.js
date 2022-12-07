@@ -1,0 +1,142 @@
+import React from 'react';
+
+export default class SaleRecordForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      price: '',
+      sales_persons: [],
+      sales_person: '',
+      customers: [],
+      customer: '',
+      automobiles: [],
+      automobile: ''
+    };
+    this.handlePriceChange = this.handlePriceChange.bind(this);
+    this.handleSalesPersonChange = this.handleSalesPersonChange.bind(this);
+    this.handleCustomerChange = this.handleCustomerChange.bind(this);
+    this.handleAutomobileChange = this.handleAutomobileChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handlePriceChange(event) {
+    const value = event.target.value;
+    this.setState({price: value});
+  }
+
+  handleSalesPersonChange(event) {
+    const value = event.target.value;
+    this.setState({sales_person: value});
+  }
+
+  handleCustomerChange(event) {
+    const value = event.target.value;
+    this.setState({customer: value});
+  }
+
+  handleAutomobileChange(event) {
+    const value = event.target.value;
+    this.setState({automobile: value});
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    const data = {...this.state};
+    delete data.sales_persons;
+    delete data.automobiles;
+    delete data.customers;
+
+    const salesUrl = 'http://localhost:8090/api/salerecords/';
+    const fetchConfig = {
+      method: 'post',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response = await fetch(salesUrl, fetchConfig);
+    if (response.ok) {
+      const newSale = await response.json();
+      console.log(newSale);
+    }
+    const cleared = {
+      price: '',
+      sales_person: '',
+      customer: '',
+      automobile: ''
+    };
+    this.setState(cleared);
+  }
+
+  async componentDidMount() {
+      fetch('http://localhost:8090/api/autos')
+        .then(automobiles => automobiles.json())
+        .then(automobiles => this.setState(automobiles))
+
+      fetch('http://localhost:8090/api/customers')
+        .then(customers => customers.json())
+        .then(customers => this.setState(customers))
+
+      fetch('http://localhost:8090/api/sales_persons')
+        .then(salesPersons => salesPersons.json())
+        .then(salesPersons => this.setState(salesPersons))
+
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <div className="offset-3 col-6">
+          <div className="shadow p-4 mt-4">
+            <h1>Create a new sale</h1>
+            <form onSubmit={this.handleSubmit} id="create-sale-form">
+              <div className="mb-3">
+                <select onChange={this.handleCustomerChange} value={this.state.customer} required id="customers" name="customers" className="form-select">
+                  <option value="">Customer</option>
+                  {this.state.customers.map(customer => {
+                    return (
+                      <option key={customer.id} value={customer.id}>
+                        {customer.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="mb-3">
+                <select onChange={this.handleSalesPersonChange} value={this.state.sales_person} required id="sales_persons" name="sales_persons" className="form-select">
+                  <option value="">Sales Person</option>
+                  {this.state.sales_persons.map(sales_person => {
+                    return (
+                      <option key={sales_person.id} value={sales_person.id}>
+                        {sales_person.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="mb-3">
+                <select onChange={this.handleAutomobileChange} value={this.state.automobile} required id="automobiles" name="automobiles" className="form-select">
+                  <option value="">Automobile</option>
+                  {this.state.automobiles.map(automobile => {
+                    return (
+                      <option key={automobile.vin} value={automobile.vin}>
+                        {automobile.vin}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="form-floating mb-3">
+                <input onChange={this.handlePriceChange} value={this.state.price} placeholder="price" required type="text" name="price" id="price" className="form-control" />
+                <label htmlFor="price">Price</label>
+              </div>
+              <button className="btn btn-primary">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
