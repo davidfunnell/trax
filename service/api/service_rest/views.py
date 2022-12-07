@@ -13,6 +13,7 @@ class InventoryVOEncoder(ModelEncoder):
     properties = [
         "vin_vo",
         "id",
+        "import_href",
     ]
 
 

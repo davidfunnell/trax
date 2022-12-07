@@ -5,6 +5,7 @@ from django.urls import reverse
 
 class InventoryVinsVO(models.Model):
     vin_vo = models.CharField(max_length=17, unique=True)
+    import_href = models.CharField(max_length=200)
 
 
 class Technician(models.Model):
