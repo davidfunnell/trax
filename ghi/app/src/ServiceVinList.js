@@ -2,73 +2,76 @@ import React from 'react';
 
 
 class ServiceVinList extends React.Component {
-    // constructor(props) {
-    //     super(props)
+    constructor(props) {
+        super(props)
+        this.state = {
+            vin: "",
+            appointments: [],
+        }
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+    }
 
-    //     this.state = {
-    //         hats: [],
-    //     }
-    //     this.fetchHats = this.fetchHats.bind(this);
-    //     this.handleDelete = this.handleDelete.bind(this);
-    // }
 
-    // componentDidMount() {
-    //     this.fetchHats();
-    // }
+    handleSearchChange(event) {
+        const value = event.target.value;
+        this.setState({ vin: value})
+      }
 
-    // async handleDelete(href){
-    //     const locationUrl = `http://localhost:8090${href}`;
-    //     const fetchConfig = {
-    //       method: "delete",
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     };
-    //     const response = await fetch(locationUrl, fetchConfig);
-    //     if (response.ok) {
-    //       const deleteHat = await response.json();
-    //       console.log(deleteHat);
-    //       this.fetchHats();
-    //     }
-    // }
+    async handleSearch(event){
+        event.preventDefault();
+        const vinUrl = `http://localhost:8080/api/service/${this.state.vin}/vin/`;
+        const response = await fetch(vinUrl)
+        if (response.ok) {
+            const data = await response.json()
+            this.setState({appointments: data.appointments})
+        }
+    }
 
-    // async fetchHats() {
-    //     const response = await fetch('http://localhost:8090/api/hats/')
-    //     if (response.ok) {
-    //         const data = await response.json()
-    //         this.setState({hats: data.hats})
-    //     }
-    // }
 
     render() {
         return (
-            <p>Service Vin List</p>
-            // <table className="table table-striped">
-            //     <thead>
-            //         <tr>
-            //             <th>Fabric</th>
-            //             <th>Style</th>
-            //             <th>Color</th>
-            //             <th>Location</th>
-            //             <th>Delete</th>
-            //         </tr>
-            //     </thead>
-            //     <tbody>
-            //         {this.state.hats.map(hat => {
-            //             return (
-            //                 <tr key={hat.id}>
-            //                     <td>{hat.fabric}</td>
-            //                     <td>{hat.style}</td>
-            //                     <td>{hat.color}</td>
-            //                     <td>{hat.location.closet_name}</td>
-            //                     <td><button onClick={() => this.handleDelete(hat.href)} className="btn btn-primary">Delete</button></td>
-            //                 </tr>
-            //             );
-            //         })}
-            //     </tbody>
-            // </table>
+            <>
+                <div className="row">
+                    <div className="offset-3 col-6">
+                        <div className="shadow p-4 mt-4">
+                            <form onSubmit={this.handleSearch} id="create-location-form" >
+                                <div className="form-floating mb-3">
+                                    <input value={this.state.vin} onChange={this.handleSearchChange} placeholder="vin" required type="text" name="vin" id="vin" className="form-control" />
+                                    <label htmlFor="vin">Search by Vin</label>
+                                </div>
+                                <button className="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Technician</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.appointments.map(appointment => {
+                            return (
+                                <tr key={appointment.id}>
+                                    <td>{appointment.owner_name}</td>
+                                    <td>{appointment.date}</td>
+                                    <td>{appointment.time}</td>
+                                    <td>{appointment.technician.name}</td>
+                                    <td>{appointment.description}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </>
 
-    );
+        );
     }
 }
 
