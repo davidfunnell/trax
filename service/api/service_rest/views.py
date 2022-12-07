@@ -6,8 +6,6 @@ from common.json import ModelEncoder
 from .models import InventoryVinsVO, Technician, ServiceAppointment
 
 
-# Create your views here.
-
 class InventoryVOEncoder(ModelEncoder):
     model = InventoryVinsVO
     properties = [
@@ -24,6 +22,7 @@ class TechnicianEncoder(ModelEncoder):
         "employee_number",
         "id",
     ]
+
 
 class ServiceAppointmentsListEncoder(ModelEncoder):
     model = ServiceAppointment
@@ -43,8 +42,7 @@ class ServiceAppointmentsListEncoder(ModelEncoder):
     }
 
 
-#This function gets both hats by locations and all hats
-#This function allows you to create a hat with a locationVO
+#This is a RESTFUL API Post,Get all, filter by vin, view for service appointments
 @require_http_methods(["GET", "POST"])
 def api_list_service_appointments(request, input_vin=None):
     if request.method == "GET":
@@ -80,33 +78,31 @@ def api_list_service_appointments(request, input_vin=None):
             return response
 
 
+#This is a RESTFUL API Get detail and Delete view for service appointments
+@require_http_methods(["GET", "DELETE"])
+def api_show_service_detail(request, pk):
+    if request.method == "GET":
+        try:
+            service = ServiceAppointment.objects.get(id=pk)
+            return JsonResponse(
+                service,
+                encoder=ServiceAppointmentsListEncoder,
+                safe=False
+            )
+        except ServiceAppointment.DoesNotExist:
+            response = JsonResponse({"message": "Does not exist, Can't Get Detail View"})
+            response.status_code = 404
+            return response
+    elif request.method == "DELETE":
+        try:
+            service = ServiceAppointment.objects.get(id=pk)
+            service.delete()
+            return JsonResponse({"deleted": "true"})
+        except ServiceAppointment.DoesNotExist:
+            return JsonResponse({"message": "Does not exist, Can't Delete"})
 
 
-#This function allows you to get the details of a hat or delete it
-# @require_http_methods(["GET", "DELETE"])
-# def api_show_hat(request, pk):
-#     if request.method == "GET":
-#         try:
-#             hat = Hat.objects.get(id=pk)
-#             return JsonResponse(
-#                 hat,
-#                 encoder=HatDetailEncoder,
-#                 safe=False
-#             )
-#         except Hat.DoesNotExist:
-#             response = JsonResponse({"message": "Does not exist, Can't Get Detail View"})
-#             response.status_code = 404
-#             return response
-#     elif request.method == "DELETE":
-#         try:
-#             hat = Hat.objects.get(id=pk)
-#             hat.delete()
-#             return JsonResponse({"deleted": "true"})
-#         except Hat.DoesNotExist:
-#             return JsonResponse({"message": "Does not exist, Can't Delete"})
-
-
-#added this so i can use it for my dropdown list to create a new hat based off of VO locations
+#This is a RESTFUL API Post and Get all view for technicians
 @require_http_methods(["GET", "POST"])
 def api_list_technicians(request):
     if request.method == "GET":
@@ -132,7 +128,7 @@ def api_list_technicians(request):
             return response
 
 
-@require_http_methods(["GET", "POST"])
+#This is a RESTFUL API Get view for polled vehicle vins stored as value objects
 def api_list_inventory_vins_vo(request):
     if request.method == "GET":
         inventory_vins_vo = InventoryVinsVO.objects.all()
