@@ -219,13 +219,13 @@ GET: http://localhost:8080/api/inventoryvo/
 
     {
 	"inventory_vo_vins": [
-    {
+        {
         "vin_vo": "1C3CC5FB2AN120175",
         "id": 1,
         "import_href": "/api/automobiles/1C3CC5FB2AN120175/"
-    },
-    .....additional items shown here...
-    ]
+        },
+        ..additional items shown here...
+        ]
     }
 
 
