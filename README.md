@@ -23,19 +23,19 @@ GET: http://localhost:8080/api/service/
     {
 	"appointments": [
         {
-			"vin": "1C3CC5FB2AN120175",
-			"owner_name": "David",
-			"date": "2023-03-06",
-			"time": "09:00:00",
-			"description": "30,000 mile checkup",
-			"purchased": true,
-			"complete": false,
-			"id": 1,
-			"technician": {
-				"name": "Mark",
-				"employee_number": 12345,
-				"id": 1
-			}
+        "vin": "1C3CC5FB2AN120175",
+        "owner_name": "David",
+        "date": "2023-03-06",
+        "time": "09:00:00",
+        "description": "30,000 mile checkup",
+        "purchased": true,
+        "complete": false,
+        "id": 1,
+        "technician": {
+            "name": "Mark",
+            "employee_number": 12345,
+            "id": 1
+        }
 		},
         .....additional items shown here...
         ]
@@ -52,19 +52,19 @@ GET: http://localhost:8080/api/service/#/vin/
     {
 	"appointments": [
         {
-			"vin": "1C3CC5FB2AN120175",
-			"owner_name": "David",
-			"date": "2023-03-06",
-			"time": "09:00:00",
-			"description": "30,000 mile checkup",
-			"purchased": true,
-			"complete": false,
-			"id": 1,
-			"technician": {
-				"name": "Mark",
-				"employee_number": 12345,
-				"id": 1
-			}
+        "vin": "1C3CC5FB2AN120175",
+        "owner_name": "David",
+        "date": "2023-03-06",
+        "time": "09:00:00",
+        "description": "30,000 mile checkup",
+        "purchased": true,
+        "complete": false,
+        "id": 1,
+        "technician": {
+            "name": "Mark",
+            "employee_number": 12345,
+            "id": 1
+        }
 		},
         .....additional items shown here...
         ]
@@ -122,7 +122,7 @@ DELETE: http://localhost:8080/api/service/#/
 	    "deleted": "true"
     }
 
-    If you have have inserted a hat id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+    If you have have inserted a service appointment id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
 
     {
 	    "message": "Does not exist, Can't Delete"
@@ -153,9 +153,9 @@ GET: http://localhost:8080/api/technicians/
     {
 	"technicians": [
        {
-            "name": "Mark",
-            "employee_number": 12345,
-            "id": 1
+        "name": "Mark",
+        "employee_number": 12345,
+        "id": 1
 		},
         .....additional items shown here...
         ]
@@ -190,7 +190,7 @@ POST: http://localhost:8080/api/technicians/
 
 ***** Additionally included functionality
 
-To get details for a specific hat;
+To get details for a specific service appointment;
 GET: http://localhost:8080/api/service/#/
 
     Insert the service appointment id in place of # in the endpoint to correctly see details on the appointment of your choice.
@@ -219,13 +219,13 @@ GET: http://localhost:8080/api/inventoryvo/
 
     {
 	"inventory_vo_vins": [
-		{
-			"vin_vo": "1C3CC5FB2AN120175",
-			"id": 1,
-			"import_href": "/api/automobiles/1C3CC5FB2AN120175/"
-		},
-        .....additional items shown here...
-	    ]
+    {
+        "vin_vo": "1C3CC5FB2AN120175",
+        "id": 1,
+        "import_href": "/api/automobiles/1C3CC5FB2AN120175/"
+    },
+    .....additional items shown here...
+    ]
     }
 
 
