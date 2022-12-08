@@ -9,15 +9,25 @@ sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "service_project.settings")
 django.setup()
 
-# Import models from service_rest, here.
-# from service_rest.models import Something
+from service_rest.models import InventoryVinsVO
+
+
+def get_inventory_vins():
+    response = requests.get("http://inventory-api:8000/api/automobiles/")
+    content = json.loads(response.content)
+    for auto in content["autos"]:
+        # print(auto["href"])
+        InventoryVinsVO.objects.update_or_create(
+            import_href=auto["href"],
+            defaults={"vin_vo": auto["vin"]},
+            )
+
 
 def poll():
     while True:
         print('Service poller polling for data')
         try:
-            # Write your polling logic, here
-            pass
+            get_inventory_vins()
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)
