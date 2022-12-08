@@ -10,6 +10,7 @@ class ServiceList extends React.Component {
         }
         this.fetchAppointments = this.fetchAppointments.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleComplete = this.handleComplete.bind(this);
     }
 
     componentDidMount() {
@@ -28,6 +29,22 @@ class ServiceList extends React.Component {
         if (response.ok) {
         //   const deleteService = await response.json();
         //   console.log(deleteService);
+          this.fetchAppointments();
+        }
+    }
+
+    async handleComplete(id){
+        const serviceUrl = `http://localhost:8080/api/service/${id}/`;
+        const data = {complete: true}
+        const fetchConfig = {
+          method: "put",
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const response = await fetch(serviceUrl, fetchConfig);
+        if (response.ok) {
           this.fetchAppointments();
         }
     }
@@ -58,6 +75,7 @@ class ServiceList extends React.Component {
                 </thead>
                 <tbody>
                     {this.state.appointments.map(appointment => {
+                        if(appointment.complete === false){
                         let purchase = ""
                         if(appointment.purchased === true){
                             purchase = "Yes - VIP TREATMENT"
@@ -73,11 +91,11 @@ class ServiceList extends React.Component {
                                 <td>{appointment.technician.name}</td>
                                 <td>{appointment.description}</td>
                                 <td><button onClick={() => this.handleDelete(appointment.id)} className="btn btn-danger">Cancel</button></td>
-                                <td><button onClick={() => this.handleDelete(appointment.id)} className="btn btn-success">Finished</button></td>
+                                <td><button onClick={() => this.handleComplete(appointment.id)} className="btn btn-success">Finished</button></td>
                                 <td>{purchase}</td>
                             </tr>
                         );
-                    })}
+                        }})}
                 </tbody>
             </table>
 

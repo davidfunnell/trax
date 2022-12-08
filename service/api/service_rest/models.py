@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-# Create your models here.
 
 class InventoryVinsVO(models.Model):
     vin_vo = models.CharField(max_length=17, unique=True)
@@ -23,7 +22,7 @@ class ServiceAppointment(models.Model):
     time = models.TimeField()
     description = models.TextField()
     purchased = models.BooleanField()
-    #might need to add a boolean field with finished for appointment status
+    complete = models.BooleanField()
     technician = models.ForeignKey(
         Technician,
         related_name="technician",

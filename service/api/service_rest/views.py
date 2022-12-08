@@ -33,6 +33,7 @@ class ServiceAppointmentsListEncoder(ModelEncoder):
         "time",
         "description",
         "purchased",
+        "complete",
         "id",
         "technician",
 
@@ -56,6 +57,7 @@ def api_list_service_appointments(request, input_vin=None):
         )
     else:
         content = json.loads(request.body)
+        content["complete"] = False
         try:
             try:
                 purchase = InventoryVinsVO.objects.get(vin_vo=content["vin"])
@@ -78,8 +80,8 @@ def api_list_service_appointments(request, input_vin=None):
             return response
 
 
-#This is a RESTFUL API Get detail and Delete view for service appointments
-@require_http_methods(["GET", "DELETE"])
+#This is a RESTFUL API Get detail, Delete and PUT view for service appointments
+@require_http_methods(["GET", "DELETE", "PUT"])
 def api_show_service_detail(request, pk):
     if request.method == "GET":
         try:
@@ -100,6 +102,16 @@ def api_show_service_detail(request, pk):
             return JsonResponse({"deleted": "true"})
         except ServiceAppointment.DoesNotExist:
             return JsonResponse({"message": "Does not exist, Can't Delete"})
+# This was added for making a service as complete
+    else:
+        content = json.loads(request.body)
+        ServiceAppointment.objects.filter(id=pk).update(**content)
+        appointment = ServiceAppointment.objects.get(id=pk)
+        return JsonResponse(
+            appointment,
+            encoder=ServiceAppointmentsListEncoder,
+            safe=False,
+        )
 
 
 #This is a RESTFUL API Post and Get all view for technicians

@@ -53,10 +53,17 @@ class ServiceVinList extends React.Component {
                             <th>Time</th>
                             <th>Technician</th>
                             <th>Reason</th>
+                            <th>Completed</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.appointments.map(appointment => {
+                            let completed = ""
+                            if(appointment.complete === true){
+                                completed = "Yes"
+                            } else {
+                                completed = "No"
+                            }
                             return (
                                 <tr key={appointment.id}>
                                     <td>{appointment.owner_name}</td>
@@ -64,6 +71,7 @@ class ServiceVinList extends React.Component {
                                     <td>{appointment.time}</td>
                                     <td>{appointment.technician.name}</td>
                                     <td>{appointment.description}</td>
+                                    <td>{completed}</td>
                                 </tr>
                             );
                         })}
