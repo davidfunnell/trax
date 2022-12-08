@@ -6,7 +6,7 @@ class ModelForm extends React.Component {
     this.state = {
       name: '',
       pictureUrl: '',
-      manufacturer: '',
+      manufacturerId: '',
       manufacturers: [],
     }
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -16,24 +16,26 @@ class ModelForm extends React.Component {
   }
   handleNameChange(event) {
     const value = event.target.value;
-    this.setState({name: value});
+    this.setState({ name: value });
   }
   handlePictureChange(event) {
     const value = event.target.value;
-    this.setState({pictureUrl: value});
+    this.setState({ pictureUrl: value });
   }
   handleManufacturerChange(event) {
     const value = event.target.value;
-    this.setState({manufacturer: value});
+    this.setState({ manufacturerId: value });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    const data = {...this.state};
+    const data = { ...this.state };
     data.picture_url = data.pictureUrl;
     console.log(data);
     delete data.pictureUrl;
+    data.manufacturer_id = data.manufacturerId;
     delete data.manufacturers;
+    delete data.manufacturerId;
 
 
     const modelUrl = 'http://localhost:8100/api/models/';
@@ -47,7 +49,7 @@ class ModelForm extends React.Component {
 
     const response = await fetch(modelUrl, fetchConfig);
     if (response.ok) {
-      const newModel= await response.json();
+      const newModel = await response.json();
       console.log('model created: ', newModel);
     } else {
       console.log(response)
@@ -84,14 +86,14 @@ class ModelForm extends React.Component {
               </div>
               <div className="form-floating mb-3">
                 <select onChange={this.handleManufacturerChange} placeholder="Manufacturer" required name="manufacturers" id="manufacturer" className="form-select">
-                <option value="">Manufacturer</option>
-                {this.state.manufacturers.map(manufacturer => {
-                  return (
-                    <option key={manufacturer.id} value={manufacturer.id}>
-                      {manufacturer.name}
-                    </option>
-                  );
-                })}
+                  <option value="">Manufacturer</option>
+                  {this.state.manufacturers.map(manufacturer => {
+                    return (
+                      <option key={manufacturer.id} value={manufacturer.id}>
+                        {manufacturer.name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <button className="btn btn-primary">Create</button>
