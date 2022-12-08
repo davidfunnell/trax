@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class AutomobileVO(models.Model):
@@ -7,7 +6,7 @@ class AutomobileVO(models.Model):
     import_href = models.CharField(max_length=100, unique=True, null=True)
 
     def __str__(self):
-      return self.vin
+        return self.vin
 
 
 class SalesPerson(models.Model):
@@ -15,7 +14,7 @@ class SalesPerson(models.Model):
     employee_number = models.PositiveSmallIntegerField(unique=True)
 
     def __str__(self):
-      return self.name
+        return self.name
 
 
 class Customer(models.Model):
@@ -24,25 +23,25 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=15)
 
     def __str__(self):
-      return self.name
+        return self.name
 
 
 class SaleRecord(models.Model):
     price = models.CharField(max_length=50)
     customer = models.ForeignKey(
-      Customer,
-      related_name="sale_records",
-      on_delete = models.PROTECT
+        Customer,
+        related_name="sale_records",
+        on_delete=models.PROTECT
     )
 
     sales_person = models.ForeignKey(
-      SalesPerson,
-      related_name="sale_person",
-      on_delete = models.PROTECT
+        SalesPerson,
+        related_name="sale_person",
+        on_delete=models.PROTECT
     )
 
     automobile = models.ForeignKey(
-      AutomobileVO,
-      related_name="automobile",
-      on_delete = models.PROTECT
+        AutomobileVO,
+        related_name="automobile",
+        on_delete=models.PROTECT
     )

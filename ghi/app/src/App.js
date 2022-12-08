@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from './MainPage';
+import MainPage from './MainPage'; 
 import Nav from './Nav';
 import SalesPersonForm from './SalesPersonForm';
 import CustomerForm from './CustomerForm';
@@ -19,12 +19,6 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    fetch('http://localhost:8100/api/manufacturers/')
-      .then(manufacturers => manufacturers.json())
-      .then(manufacturers => this.setState(manufacturers))
-    fetch('http://localhost:8100/api/models/')
-      .then(models => models.json())
-      .then(models => this.setState(models))
     fetch('http://localhost:8090/api/salerecords/')
       .then(salesRecords => salesRecords.json())
       .then(salesRecords => {
