@@ -26,31 +26,33 @@ class AutomobileList extends React.Component {
     render() {
         return (
             <>
-            <h1>Automobile Inventory</h1>
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Vin</th>
-                        <th>Color</th>
-                        <th>Year</th>
-                        <th>Model</th>
-                        <th>Manufacturer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.state.autos.map(auto => {
-                        return (
-                            <tr key={auto.id}>
-                                <td>{auto.vin}</td>
-                                <td>{auto.color}</td>
-                                <td>{auto.year}</td>
-                                <td>{auto.model.name}</td>
-                                <td>{auto.model.manufacturer.name}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                <div className='mb-3 mt-3'>
+                    <h1>Automobile Inventory</h1>
+                </div>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vin</th>
+                            <th>Color</th>
+                            <th>Year</th>
+                            <th>Model</th>
+                            <th>Manufacturer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.autos.map(auto => {
+                            return (
+                                <tr key={auto.id}>
+                                    <td>{auto.vin}</td>
+                                    <td>{auto.color}</td>
+                                    <td>{auto.year}</td>
+                                    <td>{auto.model.name}</td>
+                                    <td>{auto.model.manufacturer.name}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </>
 
         );

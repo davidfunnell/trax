@@ -15,16 +15,16 @@ class ServiceVinList extends React.Component {
 
     handleSearchChange(event) {
         const value = event.target.value;
-        this.setState({ vin: value})
-      }
+        this.setState({ vin: value })
+    }
 
-    async handleSearch(event){
+    async handleSearch(event) {
         event.preventDefault();
         const vinUrl = `http://localhost:8080/api/service/${this.state.vin}/vin/`;
         const response = await fetch(vinUrl)
         if (response.ok) {
             const data = await response.json()
-            this.setState({appointments: data.appointments})
+            this.setState({ appointments: data.appointments })
         }
     }
 
@@ -32,20 +32,21 @@ class ServiceVinList extends React.Component {
     render() {
         return (
             <>
+                <div className="mt-3">
+                    <h1>Service Appointment History</h1>
+                </div>
                 <div className="row">
                     <div className="offset-3 col-6">
-                        <div className="shadow p-4 mt-4">
-                            <form onSubmit={this.handleSearch} id="create-location-form" >
-                                <div className="form-floating mb-3">
-                                    <input value={this.state.vin} onChange={this.handleSearchChange} placeholder="vin" required type="text" name="vin" id="vin" className="form-control" />
-                                    <label htmlFor="vin">Search by Vin</label>
-                                </div>
-                                <button className="btn btn-primary">Search</button>
-                            </form>
-                        </div>
+                        <form onSubmit={this.handleSearch} id="create-location-form" className="mt-3">
+                            <div className="form-floating mb-3">
+                                <input value={this.state.vin} onChange={this.handleSearchChange} placeholder="vin" required type="text" name="vin" id="vin" className="form-control" />
+                                <label htmlFor="vin">Search by Vin</label>
+                            </div>
+                            <button className="btn btn-primary">Search</button>
+                        </form>
                     </div>
                 </div>
-                <table className="table table-striped">
+                <table className="table table-striped mt-2">
                     <thead>
                         <tr>
                             <th>Customer Name</th>
@@ -59,7 +60,7 @@ class ServiceVinList extends React.Component {
                     <tbody>
                         {this.state.appointments.map(appointment => {
                             let completed = ""
-                            if(appointment.complete === true){
+                            if (appointment.complete === true) {
                                 completed = "Yes"
                             } else {
                                 completed = "No"
