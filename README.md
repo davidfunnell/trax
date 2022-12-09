@@ -8,6 +8,112 @@ Team:
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
 
+## Inventory microservice
+
+The Inventory microservice is run on http://localhost:8100 on your local machine.
+
+### API Help
+Below are a list of RESTful api endpoints that the Inventory microservice uses.
+
+To get a list of all of the Manufacturers:
+GET: 	http://localhost:8100/api/manufacturers/
+
+{
+  "name": "Chrysler"
+}
+
+To Create a Manufacturers:
+POST: http://localhost:8100/api/manufacturers/
+
+{
+  "href": "/api/manufacturers/1/",
+  "id": 1,
+  "name": "Chrysler"
+}
+
+To Update a Manufacturer:
+PUT: http://localhost:8100/api/manufacturers/#/
+
+{
+  "href": "/api/manufacturers/1/",
+  "id": 1,
+  "name": "Chrysler"
+}
+
+To delete a Manufacturer:
+DELETE: http://localhost:8100/api/manufacturers/#/
+
+    Insert the manufacturer id in place of # in the endpoint to correctly delete the manufacturerof your choice.
+
+    The response code should be 200 OK if successful. The response should look as shown below.
+
+    {
+	    "deleted": "true"
+    }
+
+    If you have have inserted a manufacturer id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+
+    {
+	    "message": "Does not exist, Can't Delete"
+    }
+
+
+To get a list of all of the Models:
+GET: http://localhost:8100/api/models/
+
+{
+  "models": [
+    {
+      "href": "/api/models/1/",
+      "id": 1,
+      "name": "Sebring",
+      "picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
+      "manufacturer": {
+        "href": "/api/manufacturers/1/",
+        "id": 1,
+        "name": "Daimler-Chrysler"
+      }
+    }
+  ]
+}
+
+
+To Create a Model:
+POST: http://localhost:8100/api/models/
+
+{
+  "name": "Sebring",
+  "picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
+  "manufacturer_id": 1
+}
+
+
+To Update a Model:
+PUT: http://localhost:8100/api/models/#/
+
+{
+  "name": "Sebring",
+  "picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
+  "manufacturer_id": 1
+}
+
+To delete a Model:
+DELETE: http://localhost:8100/api/models/#/
+
+    Insert the model id in place of # in the endpoint to correctly delete the model of your choice.
+
+    The response code should be 200 OK if successful. The response should look as shown below.
+
+    {
+	    "deleted": "true"
+    }
+
+    If you have have inserted a model id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+
+    {
+	    "message": "Does not exist, Can't Delete"
+    }
+
 ## Service microservice
 
 The Service microservice is run on http://localhost:8080 on your local machine.
@@ -254,7 +360,6 @@ vin, owner_name...etc are fields of the model.
 
 InventoryVinsVO is a value object that is storing polled data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint ""http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
 
-_______________________________________________________________________
 
 ## Sales microservice
 
@@ -323,7 +428,6 @@ DELETE: http://localhost:8090/api/sales_persons/#/
         "message": "Does not exist, Can't Delete"
     }
 
-_________________________________________________________________________
 
 To get a list of all of the Sales Records:
 GET: http://localhost:8090/api/salerecords/
@@ -386,7 +490,6 @@ DELETE: http://localhost:8090/api/salerecords/#/
         "message": "Does not exist, Can't Delete"
     }
 
-_________________________________________________________________________________________
 
 To get a list of all of the Customers:
 GET: http://localhost:8090/api/customers/
