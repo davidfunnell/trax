@@ -254,13 +254,165 @@ vin, owner_name...etc are fields of the model.
 
 InventoryVinsVO is a value object that is storing polled data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint ""http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
 
---------------------------------------------------------------------------------------------------
+
 ## Sales microservice
 
 The Sales microservice is run on http://localhost:8090 on your local machine.
 
 ### API Help
-Below are a list of RESTful api endpoints that the Sales microservice uses.
+Below are a list of RESTful api endpoints that the Service microservice uses.
+
+To get a list of all of the Sales Person:
+GET: http://localhost:8090/api/sales_persons/
+
+ The response code should be 200 OK if successful. The response should look as shown below.
+
+{
+	"sales_persons": [
+		{
+			"name": "Kevin",
+			"employee_number": 1,
+			"id": 12
+		}
+	]
+}
+
+To Create a Sales Person:
+POST: http://localhost:8090/api/sales_persons/
+
+{
+	"name": "Josh",
+	"employee_number": "100"
+}
+
+To Update a Sales Person:
+PUT: http://localhost:8080/api/service/#/ 
+
+    Insert the Sales person id in place of # in the endpoint to correctly update the sales person of your choice.
+
+    below is the correct JSON BODY formatting for PUT. Note: You only need to add the Key:Value pairs that you would like to update;
+
+{
+	"sales_persons": [
+		{
+			"name": "Kevin",
+			"employee_number": 1,
+			"id": 12
+		}
+	]
+}
+ 
+
+To Delete a Sales Person:
+DELETE: http://localhost:8090/api/sales_persons/#/
+
+    Insert the service appointment id in place of # in the endpoint to correctly delete the appointment of your choice.
+
+    The response code should be 200 OK if successful. The response should look as shown below.
+
+    {
+        "deleted": "true"
+    }
+
+    If you have have inserted a service appointment id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+
+    {
+        "message": "Does not exist, Can't Delete"
+    }
+
+
+______________________________________________________________
+
+To get a list of all of the Sales Records:
+GET: http://localhost:8090/api/salerecords/
+
+ The response code should be 200 OK if successful. The response should look as shown below.
+
+{
+	"sales": []
+}
+
+To Create a Sales Person:
+POST: http://localhost:8090/api/salerecords/
+
+{
+	"sales": []
+}
+
+To Update a Sales Person:
+PUT: http://localhost:8090/api/salerecords/#/
+
+    Insert the Sales person id in place of # in the endpoint to correctly update the sales person of your choice.
+
+    below is the correct JSON BODY formatting for PUT. Note: You only need to add the Key:Value pairs that you would like to update;
+
+{
+	"sales": []
+}
+
+To Delete a Sales Record:
+DELETE: http://localhost:8090/api/salerecords/#/
+
+    Insert the service appointment id in place of # in the endpoint to correctly delete the appointment of your choice.
+
+    The response code should be 200 OK if successful. The response should look as shown below.
+
+    {
+        "deleted": "true"
+    }
+
+    If you have have inserted a service appointment id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+
+    {
+        "message": "Does not exist, Can't Delete"
+    }
+
+____________________________________________________________
+
+To get a list of all of the Customer:
+GET: http://localhost:8090/api/customers/
+
+ The response code should be 200 OK if successful. The response should look as shown below.
+
+{
+	"customers": []
+}
+
+To Create a Customer:
+POST: http://localhost:8090/api/customers/
+
+{
+	"customers": []
+}
+
+To Update a Customer:
+PUT: http://localhost:8090/api/customers/#/
+
+    Insert the Sales person id in place of # in the endpoint to correctly update the sales person of your choice.
+
+    below is the correct JSON BODY formatting for PUT. Note: You only need to add the Key:Value pairs that you would like to update;
+
+{
+	"customers": []
+}
+
+To Delete a Customer:
+DELETE: http://localhost:8090/api/customers/#/
+
+    Insert the service appointment id in place of # in the endpoint to correctly delete the appointment of your choice.
+
+    The response code should be 200 OK if successful. The response should look as shown below.
+
+    {
+        "deleted": "true"
+    }
+
+    If you have have inserted a service appointment id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+
+    {
+        "message": "Does not exist, Can't Delete"
+    }
+
 
 ### Below are the models within the Service microservice:
 

@@ -16,27 +16,27 @@ export default class CustomerForm extends React.Component {
 
   handleNameChange(event) {
     const value = event.target.value;
-    this.setState({name: value});
+    this.setState({ name: value });
   }
 
   handleAddressChange(event) {
     const value = event.target.value;
-    this.setState({address: value});
+    this.setState({ address: value });
   }
 
   handlePhoneNumberChange(event) {
     const value = event.target.value;
-    this.setState({phoneNumber: value});
+    this.setState({ phoneNumber: value });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    const data = {...this.state};
+    const data = { ...this.state };
     data.phone_number = data.phoneNumber;
     delete data.phoneNumber;
 
     const customerUrl = 'http://localhost:8090/api/customers/';
-    const fetchConfig= {
+    const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
       headers: {
@@ -60,6 +60,11 @@ export default class CustomerForm extends React.Component {
   }
 
   render() {
+    let messageClasses = 'alert alert-success d-none mb-0';
+    let formClasses = '';
+    if (this.state.created) {
+      messageClasses = 'alert alert-success mt-3 mb-0';
+    }
     return (
       <div className="row">
         <div className="offset-3 col-6">
@@ -80,6 +85,9 @@ export default class CustomerForm extends React.Component {
               </div>
               <button className="btn btn-primary">Create</button>
             </form>
+            <div className={messageClasses} id="success-message">
+              Congratulations! You created a Sales Person!
+            </div>
           </div>
         </div>
       </div>
