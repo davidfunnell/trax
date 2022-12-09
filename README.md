@@ -8,6 +8,8 @@ Team:
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
 
+https://excalidraw.com/#json=KnX2KJS-Mx4Bl5GNrWmkS,3m16TV4FZChEl3CDLwaqpw
+
 ## Inventory microservice
 
 The Inventory microservice is run on http://localhost:8100 on your local machine.
@@ -369,6 +371,7 @@ The Sales microservice is run on http://localhost:8090 on your local machine.
 Below are a list of RESTful api endpoints that the Sales microservice uses.
 
 To get a list of all of the Sales Person:
+
 GET: http://localhost:8090/api/sales_persons/
 
 The response code should be 200 OK if successful. The response should look as shown below.
@@ -380,6 +383,7 @@ The response code should be 200 OK if successful. The response should look as sh
 		}
 
 To Create a Sales Person:
+
 POST: http://localhost:8090/api/sales_persons/
 
 below is the correct JSON BODY formatting for POST;
@@ -393,6 +397,7 @@ If you enter a key value that has been used then there will be an error that sta
 "duplicate key value violates unique constraint"
 
 To Update a Sales Person:
+
 PUT: http://localhost:8080/api/service/#/ 
 
 Insert the Sales person id in place of # in the endpoint to correctly update the sales person of your choice.
@@ -410,6 +415,7 @@ below is the correct JSON BODY formatting for PUT. Note: You only need to add th
     }
  
 To Delete a Sales Person:
+
 DELETE: http://localhost:8090/api/sales_persons/#/
 
 Insert the sales person id in place of # in the endpoint to correctly delete the person of your choice.
@@ -428,6 +434,7 @@ If you have inserted a sales person id that does not exist, you will recieve a r
 
 
 To get a list of all of the Sales Records:
+
 GET: http://localhost:8090/api/salerecords/
 
 The response code should be 200 OK if successful. The response should look as shown below.
@@ -454,6 +461,7 @@ The response code should be 200 OK if successful. The response should look as sh
     }
 
 To Create a Sales Records:
+
 POST: http://localhost:8090/api/salerecords/
 
     {
@@ -461,6 +469,7 @@ POST: http://localhost:8090/api/salerecords/
     }
 
 To Update a Sales Records:
+
 PUT: http://localhost:8090/api/salerecords/#/
 
 Insert the Sales record id in place of # in the endpoint to correctly update the sales record of your choice.
@@ -472,6 +481,7 @@ below is the correct JSON BODY formatting for PUT. Note: You only need to add th
     }
 
 To Delete a Sales Records:
+
 DELETE: http://localhost:8090/api/salerecords/#/
 
 Insert the sales records id in place of # in the endpoint to correctly delete the sales record of your choice.
@@ -490,6 +500,7 @@ If you have have inserted a sales records id that does not exist, you will recie
 
 
 To get a list of all of the Customers:
+
 GET: http://localhost:8090/api/customers/
 
 The response code should be 200 OK if successful. The response should look as shown below.
@@ -506,6 +517,7 @@ The response code should be 200 OK if successful. The response should look as sh
     }
 
 To Create a Customer:
+
 POST: http://localhost:8090/api/customers/
 
     {
@@ -513,6 +525,7 @@ POST: http://localhost:8090/api/customers/
     }
 
 To Update a Customer:
+
 PUT: http://localhost:8090/api/customers/#/
 
 Insert the customers id in place of # in the endpoint to correctly update the customers of your choice.
@@ -524,6 +537,7 @@ below is the correct JSON BODY formatting for PUT. Note: You only need to add th
     }
 
 To Delete a Customer:
+
 DELETE: http://localhost:8090/api/customers/#/
 
 Insert the customer id in place of # in the endpoint to correctly delete the appointment of your choice.
