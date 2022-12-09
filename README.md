@@ -8,7 +8,7 @@ Team:
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
 
-![System Diagram](Microservices.png)
+![System Diagram](Microservice.png) 
 
 ## Inventory microservice
 
