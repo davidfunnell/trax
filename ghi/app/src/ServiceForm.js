@@ -1,152 +1,142 @@
-import React from 'react';
+import React from "react";
 
 class ServiceForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      vin: '',
-      ownerName: '',
-      date: '',
-      time: '',
-      description: '',
-      technician: '',
-      created: false,
+      vin: "",
+      customer_name: "",
+      date: "",
+      time: "",
+      technician: "",
       technicians: [],
-    };
+      reason: "",
+    }
     this.handleVinChange = this.handleVinChange.bind(this);
-    this.handleOwnerNameChange = this.handleOwnerNameChange.bind(this);
+    this.handleCustomerChange = this.handleCustomerChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleTechnicianChange = this.handleTechnicianChange.bind(this);
+    this.handleReasonChange = this.handleReasonChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
-    async handleSubmit(event) {
-      event.preventDefault();
-      const data = {...this.state};
-      data.owner_name = data.ownerName;
-      delete data.ownerName;
-      delete data.technicians;
-      delete data.created
-      // console.log(data)
+  async handleSubmit(event) {
+    event.preventDefault();
+    const data = { ...this.state };
+    delete data.technicians;
+    const serviceUrl = "http://localhost:8080/api/services/"
+    const fetchConfig = {
+      method: "post",
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await fetch(serviceUrl, fetchConfig);
+    if (response.ok) {
+      const newService = await response.json();
+      console.log(newService)
 
-      const serviceUrl = 'http://localhost:8080/api/service/';
-      const fetchConfig = {
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-      const response = await fetch(serviceUrl, fetchConfig);
-      if (response.ok) {
-        // const newService = await response.json();
-        // console.log(newService);
-
-        const cleared = {
-          vin: '',
-          ownerName: '',
-          date: '',
-          time: '',
-          description: '',
-          technician: '',
-          created: true,
-        };
-        this.setState(cleared);
+      const cleared = {
+        vin: "",
+        customer_name: "",
+        date: "",
+        time: "",
+        technician: "",
+        reason: "",
       }
+      this.setState(cleared)
     }
+  }
+
+  async componentDidMount() {
+    const url = "http://localhost:8080/api/technicians/"
+
+    const response = await fetch(url)
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      this.setState({ technicians: data.technician })
+    }
+  }
+
 
   handleVinChange(event) {
-    const value = event.target.value;
-    this.setState({ vin: value, created: false })
+    const value = event.target.value
+    this.setState({ vin: value })
   }
 
-  handleOwnerNameChange(event) {
-    const value = event.target.value;
-    this.setState({ ownerName: value, created: false })
+  handleCustomerChange(event) {
+    const value = event.target.value
+    this.setState({ customer_name: value })
   }
 
   handleDateChange(event) {
-    const value = event.target.value;
-    this.setState({ date: value, created: false })
+    const value = event.target.value
+    this.setState({ date: value })
   }
 
   handleTimeChange(event) {
-    const value = event.target.value;
-    this.setState({ time: value, created: false });
-  }
-
-  handleDescriptionChange(event) {
-    const value = event.target.value;
-    this.setState({ description: value, created: false });
+    const value = event.target.value
+    this.setState({ time: value })
   }
 
   handleTechnicianChange(event) {
-      const value = event.target.value;
-      this.setState({technician: value, created: false});
-      }
+    const value = event.target.value
+    this.setState({ technician: value })
+  }
 
-  async componentDidMount() {
-      const url = 'http://localhost:8080/api/technicians/';
-
-      const response = await fetch(url);
-
-      if (response.ok) {
-        const data = await response.json();
-        this.setState({technicians: data.technicians});
-      }
+  handleReasonChange(event) {
+    const value = event.target.value
+    this.setState({ reason: value })
   }
 
   render() {
-    let messageClasses = 'alert alert-success d-none mb-0';
-    let formClasses = '';
-    if (this.state.created) {
-      messageClasses = 'alert alert-success mt-3 mb-0';
-    }
     return (
       <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
-            <h1>Create a new service appointment</h1>
-            <form className={formClasses} onSubmit={this.handleSubmit} id="create-location-form" >
+            <h1>Create Service</h1>
+            <form onSubmit={this.handleSubmit} id="create-service-form">
               <div className="form-floating mb-3">
-                <input value={this.state.vin} onChange={this.handleVinChange} placeholder="vin" required type="text" name="vin" id="vin" className="form-control" />
-                <label htmlFor="vin">Vin</label>
+                <input onChange={this.handleVinChange} placeholder="VIN" required type="text" name="vin" id="vin" className="form-control" value={this.state.vin} />
+                <label htmlFor="vin">VIN</label>
               </div>
               <div className="form-floating mb-3">
-                <input value={this.state.ownerName} onChange={this.handleOwnerNameChange} placeholder="ownerName" required type="text" name="ownerName" id="ownerName" className="form-control" />
-                <label htmlFor="ownerName">Owners Name</label>
+                <input onChange={this.handleCustomerChange} placeholder="Customer" required type="text" name="owner" id="customer" className="form-control" value={this.state.owner} />
+                <label htmlFor="customer">Customer</label>
               </div>
+
               <div className="form-floating mb-3">
-                <input value={this.state.date} onChange={this.handleDateChange} placeholder="date" required type="date" name="date" id="date" className="form-control" />
+                <input onChange={this.handleDateChange} placeholder="Date" required type="date" name="date" id="date" className="form-control" value={this.state.date} />
                 <label htmlFor="date">Date</label>
               </div>
+
               <div className="form-floating mb-3">
-                <input value={this.state.time} onChange={this.handleTimeChange} placeholder="time" required type="time" name="time" id="time" className="form-control" />
+                <input onChange={this.handleTimeChange} placeholder="Time" required type="time" name="time" id="time" className="form-control" value={this.state.time} />
                 <label htmlFor="time">Time</label>
               </div>
+
               <div className="form-floating mb-3">
-                <textarea value={this.state.description} onChange={this.handleDescriptionChange} placeholder="description" name="description" id="description" className="form-control" rows="3"/>
-                <label htmlFor="description" className="form-label">Description</label>
-              </div>
-              <div className="mb-3">
-                <select value={this.state.technician} onChange={this.handleTechnicianChange} required name="technician" id="technician" className="form-select">
-                  <option value="">Choose a technician</option>
+                <select onChange={this.handleTechnicianChange} required name="technician" id="technician" className="form-select" value={this.state.technician}>
+                  <option value="">Choose technician</option>
                   {this.state.technicians.map(technician => {
                     return (
                       <option key={technician.id} value={technician.id}>
-                        {technician.name}
+                        {technician.technician_name}
                       </option>
-                    );
+                    )
                   })}
                 </select>
               </div>
+              <div className="form-floating mb-3">
+                <input onChange={this.handleReasonChange} placeholder="Reason" required type="text" name="reason" id="reason" className="form-control" value={this.state.reason} />
+                <label htmlFor="reason">Reason</label>
+              </div>
               <button className="btn btn-primary">Create</button>
             </form>
-            <div className={messageClasses} id="success-message">
-              Congratulations! You created a service appointment!
-            </div>
           </div>
         </div>
       </div>
@@ -154,4 +144,5 @@ class ServiceForm extends React.Component {
   }
 }
 
-export default ServiceForm;
+
+export default ServiceForm

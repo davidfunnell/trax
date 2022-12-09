@@ -40,7 +40,7 @@ class SalesPersonForm extends React.Component {
     const response = await fetch(salesPersonUrl, fetchConfig);
     if (response.ok) {
       const newSalesPerson = await response.json();
-      console.log(newSalesPerson);
+      console.log('sales person created: ', newSalesPerson);
     }
 
       const cleared = {
@@ -77,4 +77,3 @@ class SalesPersonForm extends React.Component {
 }
 
 export default SalesPersonForm;
-

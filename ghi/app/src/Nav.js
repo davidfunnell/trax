@@ -50,7 +50,7 @@ function Nav() {
                       <li><NavLink className="dropdown-item" aria-current="page" to="salespersons/new/">New Employee</NavLink></li>
                       <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/new/">New Sales Record</NavLink></li>
                       <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/">All Sales Records</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/filter/">Sales by employee</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/filter/">Sales by Employee</NavLink></li>
                     </ul>
                   </li>
                 </ul>
