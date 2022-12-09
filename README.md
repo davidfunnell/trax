@@ -21,7 +21,7 @@ After successfully building and starting your containers, we recommend you start
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
 
-![System Diagram](Microservice.png) 
+![System Diagram](Microservice.png)
 
 ## Inventory microservice
 
@@ -115,7 +115,6 @@ To Delete a Model:
 DELETE: http://localhost:8100/api/models/#/
 
 Insert the model id in place of # in the endpoint to correctly delete the model of your choice.
-
 The response code should be 200 OK if successful. The response should look as shown below.
 
     {
@@ -195,7 +194,7 @@ To create a Service Appointment:
 POST: http://localhost:8080/api/service/
 
 below is the correct JSON BODY formatting for POST;
-   
+
     {
         "owner_name": "Ev",
         "date": "2023-04-06",
@@ -205,9 +204,9 @@ below is the correct JSON BODY formatting for POST;
         "technician": 1
     }
 
-    "technician": "1" is representing the id of the Technician you would like to select.
+"technician": "1" is representing the id of the Technician you would like to select.
 
-    The response code should be 200 OK if successful. The response should look as shown below.
+The response code should be 200 OK if successful. The response should look as shown below.
 
     {
         "vin": "1C3CC5FB2AN120196",
@@ -225,7 +224,7 @@ below is the correct JSON BODY formatting for POST;
         }
     }
 
-    If you have have inserted a technician id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+If you have have inserted a technician id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
 
     {
 	    "message": "Could not create the Service Appointment"
@@ -235,15 +234,15 @@ below is the correct JSON BODY formatting for POST;
 To delete a Service Appointment:
 DELETE: http://localhost:8080/api/service/#/
 
-    Insert the service appointment id in place of # in the endpoint to correctly delete the appointment of your choice.
+Insert the service appointment id in place of # in the endpoint to correctly delete the appointment of your choice.
 
-    The response code should be 200 OK if successful. The response should look as shown below.
+The response code should be 200 OK if successful. The response should look as shown below.
 
     {
 	    "deleted": "true"
     }
 
-    If you have have inserted a service appointment id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
+If you have have inserted a service appointment id that does not exist, you will recieve a response code of 400 BAD REQUEST. The response should look as shown below.
 
     {
 	    "message": "Does not exist, Can't Delete"
@@ -253,9 +252,9 @@ DELETE: http://localhost:8080/api/service/#/
 To Update a Service Appointment:
 PUT: http://localhost:8080/api/service/#/
 
-    Insert the service appointment id in place of # in the endpoint to correctly update the appointment of your choice.
+Insert the service appointment id in place of # in the endpoint to correctly update the appointment of your choice.
 
-    below is the correct JSON BODY formatting for PUT. Note: You only need to add the Key:Value pairs that you would like to update;
+below is the correct JSON BODY formatting for PUT. Note: You only need to add the Key:Value pairs that you would like to update;
     {
         "owner_name": "Ev",
         "date": "2023-04-06",
@@ -269,7 +268,7 @@ PUT: http://localhost:8080/api/service/#/
 To get a list of all of the Technicians:
 GET: http://localhost:8080/api/technicians/
 
-    The response code should be 200 OK if successful. The response should look as shown below.
+The response code should be 200 OK if successful. The response should look as shown below.
 
     {
 	"technicians": [
@@ -286,15 +285,16 @@ GET: http://localhost:8080/api/technicians/
 To create a Technician:
 POST: http://localhost:8080/api/technicians/
 
-    below is the correct JSON BODY formatting for POST;
+below is the correct JSON BODY formatting for POST;
+
     {
         "name": "Jim",
         "employee_number": 12360
     }
 
-    "technician": "1" is representing the id of the Technician you would like to select.
+"technician": "1" is representing the id of the Technician you would like to select.
 
-    The response code should be 200 OK if successful. The response should look as shown below.
+The response code should be 200 OK if successful. The response should look as shown below.
 
     {
         "name": "Jim",
@@ -314,9 +314,9 @@ POST: http://localhost:8080/api/technicians/
 To get details for a specific service appointment;
 GET: http://localhost:8080/api/service/#/
 
-    Insert the service appointment id in place of # in the endpoint to correctly see details on the appointment of your choice.
+Insert the service appointment id in place of # in the endpoint to correctly see details on the appointment of your choice.
 
-    The response code should be 200 OK if successful. The response should look as shown below.
+The response code should be 200 OK if successful. The response should look as shown below.
 
     {
         "vin": "1C3CC5FB2AN120176",
@@ -413,7 +413,7 @@ If you enter a key value that has been used then there will be an error that sta
 
 To Update a Sales Person:
 
-PUT: http://localhost:8080/api/service/#/ 
+PUT: http://localhost:8080/api/service/#/
 
 Insert the Sales person id in place of # in the endpoint to correctly update the sales person of your choice.
 
@@ -428,7 +428,7 @@ below is the correct JSON BODY formatting for PUT. Note: You only need to add th
             }
         ]
     }
- 
+
 To Delete a Sales Person:
 
 DELETE: http://localhost:8090/api/sales_persons/#/
@@ -577,7 +577,7 @@ If you have have inserted a customer id that does not exist, you will recieve a 
 
 #### Customer
     name             <- CharField(max_length=17, unique=True)
-    address          <- CharField(max_length=200)                       
+    address          <- CharField(max_length=200)
     phone_number     <- CharField(max_length=15)
 
 #### SaleRecord
@@ -588,4 +588,3 @@ If you have have inserted a customer id that does not exist, you will recieve a 
     import_href      <- CharField(max_length=100, unique=True, null=True)
 
 AutomobileVO is a value object that is storig polling data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint "http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
-
