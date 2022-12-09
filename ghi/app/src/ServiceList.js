@@ -9,7 +9,7 @@ class ServiceList extends React.Component {
             appointments: [],
         }
         this.fetchAppointments = this.fetchAppointments.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
         this.handleComplete = this.handleComplete.bind(this);
     }
 
@@ -17,25 +17,25 @@ class ServiceList extends React.Component {
         this.fetchAppointments();
     }
 
-    async handleDelete(id) {
+    async handleCancel(id) {
         const serviceUrl = `http://localhost:8080/api/service/${id}/`;
+        const data = { status: "Cancelled" }
         const fetchConfig = {
-            method: "delete",
+            method: "put",
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
         };
         const response = await fetch(serviceUrl, fetchConfig);
         if (response.ok) {
-            //   const deleteService = await response.json();
-            //   console.log(deleteService);
             this.fetchAppointments();
         }
     }
 
     async handleComplete(id) {
         const serviceUrl = `http://localhost:8080/api/service/${id}/`;
-        const data = { complete: true }
+        const data = { status: "Finished" }
         const fetchConfig = {
             method: "put",
             body: JSON.stringify(data),
@@ -79,7 +79,7 @@ class ServiceList extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.appointments.map(appointment => {
-                            if (appointment.complete === false) {
+                            if (appointment.status === "Active") {
                                 let purchase = ""
                                 if (appointment.purchased === true) {
                                     purchase = "Yes - VIP TREATMENT"
@@ -94,7 +94,7 @@ class ServiceList extends React.Component {
                                         <td>{appointment.time}</td>
                                         <td>{appointment.technician.name}</td>
                                         <td>{appointment.description}</td>
-                                        <td><button onClick={() => this.handleDelete(appointment.id)} className="btn btn-danger">Cancel</button></td>
+                                        <td><button onClick={() => this.handleCancel(appointment.id)} className="btn btn-danger">Cancel</button></td>
                                         <td><button onClick={() => this.handleComplete(appointment.id)} className="btn btn-success">Finished</button></td>
                                         <td>{purchase}</td>
                                     </tr>

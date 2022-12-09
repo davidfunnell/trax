@@ -33,7 +33,7 @@ class ServiceAppointmentsListEncoder(ModelEncoder):
         "time",
         "description",
         "purchased",
-        "complete",
+        "status",
         "id",
         "technician",
 
@@ -57,7 +57,6 @@ def api_list_service_appointments(request, input_vin=None):
         )
     else:
         content = json.loads(request.body)
-        content["complete"] = False
         try:
             try:
                 purchase = InventoryVinsVO.objects.get(vin_vo=content["vin"])

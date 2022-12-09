@@ -22,7 +22,7 @@ class ServiceAppointment(models.Model):
     time = models.TimeField()
     description = models.TextField()
     purchased = models.BooleanField()
-    complete = models.BooleanField()
+    status = models.CharField(max_length=100, default="Active")
     technician = models.ForeignKey(
         Technician,
         related_name="technician",

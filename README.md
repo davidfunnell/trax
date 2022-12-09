@@ -249,8 +249,8 @@ GET: http://localhost:8080/api/inventoryvo/
     date            <- DateField()
     time            <- TimeField()
     description     <- TextField()
-    purchased       <- BooleanField( True if Vin is in InvintoryVinsVO else False )
-    complete        <- BooleanField( Default to False )
+    purchased       <- BooleanField(True if Vin is in InvintoryVinsVO else False)
+    status          <- Charfield(max_length=100 Default="Active")
     technician      <- ForeignKey to Technician Model
 
 vin, owner_name...etc are fields of the model.
