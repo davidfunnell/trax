@@ -242,15 +242,17 @@ GET: http://localhost:8080/api/inventoryvo/
 
 vin, owner_name...etc are fields of the model.
 
-#### InventoryVinsVO
+#### Technician
     name                <- CharField(max_length=100)
     employee_number     <- PositiveSmallIntegerField(unique=True)
 
-vin, owner_name...etc are fields of the model.
+Name and employee_number are fields of the model.
 
 #### InventoryVinsVO
     vin_vo          <- CharField(max_length=17, unique=True)
     import_href     <- CharField(max_length=200)
+
+vin_vo and import_href are fields of the model.
 
 InventoryVinsVO is a value object that is storing polled data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint ""http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
 
