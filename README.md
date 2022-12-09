@@ -5,6 +5,17 @@ Team:
 * David Funnell - Service microservice
 * Tommy Mai - Sales microservice
 
+
+## Start Up Instructions
+
+ To run this application, fork and clone the main branch of this project and run the following commands in your terminal within the projects PWD.
+
+    docker volume create beta-data
+    docker-compose build
+    docker-compose up
+
+After successfully building and starting your containers, we recommend you start by adding manufacturers, models and automobiles within inventory to be able to create new service appointments within the service microservice and create new sales within the sales microservice.
+
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
 
