@@ -10,6 +10,8 @@ Team:
 
  To run this application, fork and clone the main branch of this project and run the following commands in your terminal within the projects PWD.
 
+ ![Fork And Clone Instructions](fork_clone_instructions.png)
+
     docker volume create beta-data
     docker-compose build
     docker-compose up
