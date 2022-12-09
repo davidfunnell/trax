@@ -8,7 +8,7 @@ Team:
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
 
-https://excalidraw.com/#json=KnX2KJS-Mx4Bl5GNrWmkS,3m16TV4FZChEl3CDLwaqpw
+![System Diagram](Microservices.png)
 
 ## Inventory microservice
 
