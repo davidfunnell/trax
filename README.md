@@ -8,15 +8,31 @@ Team:
 
 ## Start Up Instructions
 
- To run this application, fork and clone the main branch of this project and run the following commands in your terminal within the projects PWD.
+ To run this application, start by forking the main branch of this project.
 
- ![Fork And Clone Instructions](fork_clone_instructions.png)
+ https://gitlab.com/Tommymai/project-beta-2
+
+ ![Fork from main instructions](fork_from_main.png)
+
+ ![Fork instructions](fork_project.png)
+
+ After successfully forking the project, clone the project to your local machine. We recommend you clone with HTTPS.
+
+ ![Clone instructions](clone_project.png)
+
+ In your terminal, CD into your projects folder and git clone the copied URL from the previous step.
+
+ ![Clone git instructions](git_clone.png)
+
+ Run the following commands in your terminal within the projects PWD.
 
     docker volume create beta-data
     docker-compose build
     docker-compose up
 
-After successfully building and starting your containers, we recommend you start by adding manufacturers, models and automobiles within inventory to be able to create new service appointments within the service microservice and create new sales within the sales microservice.
+After successfully building and starting your containers, go to http://localhost:3000/ to view the application. We recommend you start by adding manufacturers, models and automobiles within the inventory tab. These added vehicles will be used to be able to create new service appointments within the service microservice and create new sales within the sales microservice.
+
+ ![First steps](initial_steps.png)
 
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
