@@ -555,7 +555,7 @@ To Delete a Customer:
 
 DELETE: http://localhost:8090/api/customers/#/
 
-Insert the customer id in place of # in the endpoint to correctly delete the appointment of your choice.
+Insert the customer id in place of # in the endpoint to correctly delete the customer of your choice.
 
 The response code should be 200 OK if successful. The response should look as shown below.
 
@@ -569,7 +569,7 @@ If you have have inserted a customer id that does not exist, you will recieve a 
         "message": "Does not exist, Can't Delete"
     }
 
-### Below are the models within the Service microservice:
+### Below are the models within the Sales microservice:
 
 #### SalesPerson
     name             <- CharField(max_length=100)
@@ -587,4 +587,4 @@ If you have have inserted a customer id that does not exist, you will recieve a 
     vin              <- CharField(max_length=17, unique=True)
     import_href      <- CharField(max_length=100, unique=True, null=True)
 
-AutomobileVO is a value object that is storig polling data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint "http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
+AutomobileVO is a value object that is storing polling data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint "http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
