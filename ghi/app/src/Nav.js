@@ -46,11 +46,11 @@ function Nav() {
                     <div className="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </div>
                     <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><NavLink className="dropdown-item" aria-current="page" to="customers/new/">New Customer</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="salespersons/new/">New Employee</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/new/">New Sales Record</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/">All Sales Records</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/filter/">Sales by Employee</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="customers/new/">Add a Customer</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="salespersons/new/">Add a Sales Person</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/new/">Create a Sale Record</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/">See All Sales</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="salerecords/filter/"> See All Sales by Sales Person</NavLink></li>
                     </ul>
                   </li>
                 </ul>

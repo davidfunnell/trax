@@ -21,6 +21,7 @@ export default function SalesList({ salesList }) {
       <thead>
         <tr>
           <th>Sales Person</th>
+          <th>Employee Number</th>
           <th>Purchaser</th>
           <th>Vin</th>
           <th>Price</th>
@@ -29,14 +30,12 @@ export default function SalesList({ salesList }) {
       <tbody>
         {salesList.map(sale => {
           return (
-            <tr key={sale.automobile}>
+            <tr key={sale.id}>
               <td>{ sale.sales_person.name }</td>
+              <td>{ sale.sales_person.employee_number }</td>
               <td>{ sale.customer.name }</td>
               <td>{ sale.vin }</td>
               <td>{ sale.price }</td>
-              <td>
-                <button onClick={(e) => deleteSale(sale.id)} className='btn btn-secondary'>Delete</button>
-              </td>
             </tr>
           );
         })}
