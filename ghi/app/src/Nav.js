@@ -22,12 +22,12 @@ function Nav() {
                     <div className="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </div>
                     <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><NavLink className="dropdown-item" aria-current="page" to="manufacturers/">Manufacturers</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="models/">Models</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="inventory/manufacturers/">Manufacturers</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="inventory/models/">Models</NavLink></li>
                       <li><NavLink className="dropdown-item" aria-current="page" to="inventory/automobiles/">Automobiles</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="manufacturers/new/">Add a manufacturer</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="models/new/">Add a model</NavLink></li>
-                      <li><NavLink className="dropdown-item" aria-current="page" to="inventory/automobile_form">Add an automobile</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="inventory/manufacturer_form/">Add a manufacturer</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="inventory/model_form/">Add a model</NavLink></li>
+                      <li><NavLink className="dropdown-item" aria-current="page" to="inventory/automobile_form/">Add an automobile</NavLink></li>
                     </ul>
                   </li>
                 </ul>
@@ -86,4 +86,3 @@ function Nav() {
 }
 
 export default Nav;
-

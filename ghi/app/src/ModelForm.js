@@ -106,4 +106,3 @@ class ModelForm extends React.Component {
 }
 
 export default ModelForm;
-
