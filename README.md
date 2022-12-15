@@ -5,14 +5,13 @@ Team:
 * David Funnell - Service microservice
 * Tommy Mai - Sales microservice
 
-
 ## Start Up Instructions
 
  To run this application, start by forking the main branch of this project.
 
- https://gitlab.com/Tommymai/project-beta-2
+ https://gitlab.com/dfunnell/car-car
 
- ![Fork from main instructions](fork_from_main.png)
+ ![Fork from main instructions](./readme_images/fork_from_main.png)
 
  ![Fork instructions](fork_project.png)
 
