@@ -100,7 +100,6 @@ class ServiceForm extends React.Component {
 
   render() {
     let messageClasses = 'alert alert-success d-none mb-0';
-    let formClasses = '';
     if (this.state.created) {
       messageClasses = 'alert alert-success mt-3 mb-0';
     }
@@ -109,7 +108,7 @@ class ServiceForm extends React.Component {
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Create a new service appointment</h1>
-            <form className={formClasses} onSubmit={this.handleSubmit} id="create-location-form" >
+            <form onSubmit={this.handleSubmit} id="create-location-form" >
               <div className="form-floating mb-3">
                 <input value={this.state.vin} onChange={this.handleVinChange} placeholder="vin" required type="text" name="vin" id="vin" className="form-control" />
                 <label htmlFor="vin">Vin</label>

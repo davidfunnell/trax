@@ -4,6 +4,7 @@ from django.urls import reverse
 
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
+    sold = models.BooleanField(default=False)
     import_href = models.CharField(max_length=100, unique=True, null=True)
 
     def __str__(self):

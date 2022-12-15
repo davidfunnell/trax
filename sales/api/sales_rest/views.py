@@ -10,7 +10,7 @@ from .models import Customer, SalesPerson, SaleRecord, AutomobileVO
 
 class AutomobileVODetailEncoder(ModelEncoder):
     model = AutomobileVO
-    properties = ["vin", "id"]
+    properties = ["vin", "sold", "id"]
 
 
 class CustomerDetailEncoder(ModelEncoder):
@@ -79,11 +79,21 @@ def api_show_customers(request, pk):
 @require_http_methods(["GET"])
 def auotomobile_vo_list(request):
     if request.method == "GET":
-        automobiles = AutomobileVO.objects.all()
+        automobiles = AutomobileVO.objects.filter(sold=False)
         return JsonResponse(
             {"automobiles": automobiles}, encoder=AutomobileVODetailEncoder, safe=False
         )
 
+@require_http_methods(["PUT"])
+def auotomobile_vo_detail(request, pk):
+    content = json.loads(request.body)
+    AutomobileVO.objects.filter(id=pk).update(**content)
+    vehicle = AutomobileVO.objects.get(id=pk)
+    return JsonResponse(
+        vehicle,
+        encoder=AutomobileVODetailEncoder,
+        safe=False,
+    )
 
 @require_http_methods(["GET", "POST"])
 def api_list_sales_persons(request):
