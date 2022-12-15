@@ -1,12 +1,13 @@
 import React from 'react';
 
-export default class CustomerForm extends React.Component {
+class CustomerForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       name: '',
       address: '',
       phoneNumber: '',
+      created: false,
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
@@ -16,17 +17,17 @@ export default class CustomerForm extends React.Component {
 
   handleNameChange(event) {
     const value = event.target.value;
-    this.setState({ name: value });
+    this.setState({ name: value, created: false });
   }
 
   handleAddressChange(event) {
     const value = event.target.value;
-    this.setState({ address: value });
+    this.setState({ address: value, created: false });
   }
 
   handlePhoneNumberChange(event) {
     const value = event.target.value;
-    this.setState({ phoneNumber: value });
+    this.setState({ phoneNumber: value, created: false });
   }
 
   async handleSubmit(event) {
@@ -34,7 +35,7 @@ export default class CustomerForm extends React.Component {
     const data = { ...this.state };
     data.phone_number = data.phoneNumber;
     delete data.phoneNumber;
-
+    delete data.created;
     const customerUrl = 'http://localhost:8090/api/customers/';
     const fetchConfig = {
       method: "post",
@@ -43,25 +44,20 @@ export default class CustomerForm extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-
     const response = await fetch(customerUrl, fetchConfig);
     if (response.ok) {
-      const newCustomer = await response.json();
-      console.log(newCustomer);
+      const cleared = {
+        name: '',
+        address: '',
+        phoneNumber: '',
+        created: true,
+      };
+      this.setState(cleared);
     }
-    const cleared = {
-      name: '',
-      address: '',
-      phoneNumber: '',
-    };
-
-    this.setState(cleared);
-
   }
 
   render() {
     let messageClasses = 'alert alert-success d-none mb-0';
-    let formClasses = '';
     if (this.state.created) {
       messageClasses = 'alert alert-success mt-3 mb-0';
     }
@@ -72,21 +68,21 @@ export default class CustomerForm extends React.Component {
             <h1>Create a new customer</h1>
             <form onSubmit={this.handleSubmit} id="create-customer-form">
               <div className="form-floating mb-3">
-                <input onChange={this.handleNameChange} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
+                <input value={this.state.name} onChange={this.handleNameChange} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
                 <label htmlFor="name">Name</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleAddressChange} required type="text" name="address" id="address" className="form-control" />
+                <input value={this.state.address} onChange={this.handleAddressChange} placeholder="Address" required type="text" name="address" id="address" className="form-control" />
                 <label htmlFor="address">Address</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handlePhoneNumberChange} required type="text" name="phone_number" id="phone_number" className="form-control" />
-                <label htmlFor="phone_number">Phone Number</label>
+                <input value={this.state.phoneNumber} onChange={this.handlePhoneNumberChange} placeholder="Phone Number" required type="text" name="phoneNumber" id="phoneNumber" className="form-control" />
+                <label htmlFor="phoneNumber">Phone Number</label>
               </div>
               <button className="btn btn-primary">Create</button>
             </form>
             <div className={messageClasses} id="success-message">
-              Congratulations! You created a Sales Person!
+              Congratulations! You created a new customer!
             </div>
           </div>
         </div>
@@ -94,4 +90,4 @@ export default class CustomerForm extends React.Component {
     );
   }
 }
-
+export default CustomerForm;
