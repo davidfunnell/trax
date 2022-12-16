@@ -12,6 +12,9 @@ class InventoryVOEncoder(ModelEncoder):
         "vin_vo",
         "id",
         "import_href",
+        "model",
+        "manufacturer",
+        "year",
     ]
 
 
