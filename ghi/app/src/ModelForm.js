@@ -5,13 +5,11 @@ class ModelForm extends React.Component {
     super(props)
     this.state = {
       name: '',
-      pictureUrl: '',
       manufacturerId: '',
       created: false,
       manufacturers: [],
     }
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePictureChange = this.handlePictureChange.bind(this);
     this.handleManufacturerChange = this.handleManufacturerChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,10 +17,7 @@ class ModelForm extends React.Component {
     const value = event.target.value;
     this.setState({ name: value, created: false});
   }
-  handlePictureChange(event) {
-    const value = event.target.value;
-    this.setState({ pictureUrl: value, created: false });
-  }
+
   handleManufacturerChange(event) {
     const value = event.target.value;
     this.setState({ manufacturerId: value, created: false });
@@ -31,8 +26,6 @@ class ModelForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
-    data.picture_url = data.pictureUrl;
-    delete data.pictureUrl;
     data.manufacturer_id = data.manufacturerId;
     delete data.manufacturers;
     delete data.manufacturerId;
@@ -49,7 +42,6 @@ class ModelForm extends React.Component {
     if (response.ok) {
       const cleared = {
         name: '',
-        pictureUrl: '',
         manufacturerId: '',
         created: true,
       };
@@ -80,10 +72,6 @@ class ModelForm extends React.Component {
               <div className="form-floating mb-3">
                 <input value={this.state.name} onChange={this.handleNameChange} placeholder="name" required type="text" name="name" id="name" className="form-control" />
                 <label htmlFor="name">Name</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input value={this.state.pictureUrl} onChange={this.handlePictureChange} placeholder="pictureUrl" required type="url" name="pictureUrl" id="pictureUrl" className="form-control" />
-                <label htmlFor="pictureUrl">Picture URL</label>
               </div>
               <div className="mb-3">
                 <select value={this.state.manufacturerId} onChange={this.handleManufacturerChange} required name="manufacturer" id="manufacturer" className="form-select">

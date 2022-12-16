@@ -8,6 +8,7 @@ from .encoders import (
     VehicleModelEncoder,
 )
 from .models import Automobile, Manufacturer, VehicleModel
+from .acls import get_photo
 
 
 @require_http_methods(["GET", "POST"])
@@ -169,6 +170,8 @@ def api_vehicle_models(request):
             manufacturer_id = content["manufacturer_id"]
             manufacturer = Manufacturer.objects.get(id=manufacturer_id)
             content["manufacturer"] = manufacturer
+            photo = get_photo(content["name"], content["manufacturer"].name)
+            content.update(photo)
             model = VehicleModel.objects.create(**content)
             return JsonResponse(
                 model,
