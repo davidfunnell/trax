@@ -136,12 +136,15 @@ def api_show_sales_person(request, pk):
 
 
 @require_http_methods(["GET", "POST"])
-def api_list_sales(request):
+def api_list_sales(request, employee_id=None):
     """
     Lists the employees names
     """
     if request.method == "GET":
-        sales = SaleRecord.objects.all()
+        if employee_id is not None:
+            sales = SaleRecord.objects.filter(sales_person=employee_id)
+        else:
+            sales = SaleRecord.objects.all()
         return JsonResponse(
             {"sales": sales}, encoder=SaleRecordDetailEncoder, safe=False
         )
