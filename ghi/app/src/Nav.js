@@ -79,6 +79,25 @@ function Nav() {
               </div>
             </div>
           </nav>
+          <nav className="navbar navbar-expand-lg navbar-dark bg-">
+            <div className="container-fluid">
+              <NavLink className="navbar-brand" to>Data</NavLink>
+              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul className="navbar-nav">
+                  <li className="nav-item dropdown">
+                    <div className="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </div>
+                    <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li><NavLink className="dropdown-item" aria-current="page" to="data/services/">Service data</NavLink></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
         </div>
       </div>
     </nav>

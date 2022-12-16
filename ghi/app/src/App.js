@@ -1,22 +1,23 @@
 import { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AutomobileForm from './AutomobileForm';
-import AutomobileList from './AutomobileList';
+import AutomobileForm from './inventory/AutomobileForm';
+import AutomobileList from './inventory/AutomobileList';
 import MainPage from './MainPage';
 import Nav from './Nav';
-import SalesPersonForm from './SalesPersonForm';
-import CustomerForm from './CustomerForm';
-import SaleRecordForm from './SaleRecordForm';
-import SalesList from './SalesList';
-import ManufacturerForm from './ManufacturerForm';
-import ManufacturerList from './ManufacturerList';
-import ModelForm from './ModelForm';
-import ModelList from './ModelList';
-import SaleRecordsFiltered from './SaleRecordsFiltered';
-import ServiceForm from './ServiceForm';
-import ServiceList from './ServiceList';
-import ServiceVinList from './ServiceVinList';
-import TechnicianForm from './TechnicianForm';
+import SalesPersonForm from './salesFiles/SalesPersonForm';
+import CustomerForm from './salesFiles/CustomerForm';
+import SaleRecordForm from './salesFiles/SaleRecordForm';
+import SalesList from './salesFiles/SalesList';
+import ManufacturerForm from './inventory/ManufacturerForm';
+import ManufacturerList from './inventory/ManufacturerList';
+import ModelForm from './inventory/ModelForm';
+import ModelList from './inventory/ModelList';
+import SaleRecordsFiltered from './salesFiles/SaleRecordsFiltered';
+import ServiceForm from './serviceFiles/ServiceForm';
+import ServiceList from './serviceFiles/ServiceList';
+import ServiceVinList from './serviceFiles/ServiceVinList';
+import TechnicianForm from './serviceFiles/TechnicianForm';
+import DataList from './serviceData/DataList';
 
 export default class App extends Component {
 render() {
@@ -46,6 +47,9 @@ render() {
             <Route path="models" element={<ModelList />} />
             <Route path="manufacturer_form" element={<ManufacturerForm />} />
             <Route path="manufacturers" element={<ManufacturerList />} />
+          </Route>
+          <Route path="data">
+            <Route path="services" element={<DataList />} />
           </Route>
         </Routes>
       </div>
