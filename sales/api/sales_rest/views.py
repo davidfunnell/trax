@@ -10,7 +10,7 @@ from .models import Customer, SalesPerson, SaleRecord, AutomobileVO
 
 class AutomobileVODetailEncoder(ModelEncoder):
     model = AutomobileVO
-    properties = ["vin", "sold", "id"]
+    properties = ["vin", "sold", "id", "model", "manufacturer"]
 
 
 class CustomerDetailEncoder(ModelEncoder):

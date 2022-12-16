@@ -154,7 +154,7 @@ export default class SaleRecordForm extends React.Component {
                   {this.state.automobiles.map(automobile => {
                     return (
                       <option key={automobile.id} value={automobile.id}>
-                        {automobile.vin}
+                        vin: {automobile.vin} - Model: {automobile.model} - Manufacturer: {automobile.manufacturer}
                       </option>
                     );
                   })}

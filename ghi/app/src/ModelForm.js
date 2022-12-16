@@ -75,7 +75,7 @@ class ModelForm extends React.Component {
       <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
-            <h1>Create a new service appointment</h1>
+            <h1>Create a new model</h1>
             <form className={formClasses} onSubmit={this.handleSubmit} id="create-location-form" >
               <div className="form-floating mb-3">
                 <input value={this.state.name} onChange={this.handleNameChange} placeholder="name" required type="text" name="name" id="name" className="form-control" />
@@ -100,7 +100,7 @@ class ModelForm extends React.Component {
               <button className="btn btn-primary">Create</button>
             </form>
             <div className={messageClasses} id="success-message">
-              Congratulations! You created a service appointment!
+              Congratulations! You created a new model!
             </div>
           </div>
         </div>

@@ -6,6 +6,8 @@ class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
     sold = models.BooleanField(default=False)
     import_href = models.CharField(max_length=100, unique=True, null=True)
+    model = models.CharField(max_length=100, null=True)
+    manufacturer = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.vin
