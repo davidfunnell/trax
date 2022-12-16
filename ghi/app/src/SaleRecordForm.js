@@ -73,7 +73,6 @@ export default class SaleRecordForm extends React.Component {
   }
 
   async updateSold(id) {
-    console.log(id)
     const serviceUrl = `http://localhost:8090/api/autos/${id}`;
     const data = { sold: true }
     const fetchConfig = {

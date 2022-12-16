@@ -19,10 +19,6 @@ import ServiceVinList from './ServiceVinList';
 import TechnicianForm from './TechnicianForm';
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    };
-
 render() {
   return (
     <BrowserRouter>
@@ -30,13 +26,13 @@ render() {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path='salerecords/'>
-            <Route path='new/' element={<SaleRecordForm />} />
-            <Route path='' element={<SalesList />} />
-            <Route path='filter/' element={<SaleRecordsFiltered/>} />
+          <Route path='sales'>
+            <Route path='sales_form' element={<SaleRecordForm />} />
+            <Route path='all_sales' element={<SalesList />} />
+            <Route path='filter_sales' element={<SaleRecordsFiltered/>} />
+            <Route path='salesperson_form' element={<SalesPersonForm />} />
+            <Route path='customer_form' element={<CustomerForm />} />
           </Route>
-          <Route path='salespersons/new' element={<SalesPersonForm />} />
-          <Route path='customers/new' element={<CustomerForm />} />
           <Route path="service">
             <Route path="technician" element={<TechnicianForm />} />
             <Route path="appointment" element={<ServiceForm />} />
