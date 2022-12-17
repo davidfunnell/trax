@@ -9,6 +9,8 @@ class DataList extends React.Component {
             appointments: [],
             mostFrequentServices: {},
             purchasedHere: {},
+            brandMostServiced: {},
+            modelMostServiced: {},
 
         }
         this.fetchAppointments = this.fetchAppointments.bind(this);
@@ -24,6 +26,8 @@ class DataList extends React.Component {
         if (response.ok) {
             const data = await response.json()
             let mostFrequentService = {}
+            let brandMostServiced = {}
+            let modelMostServiced = {}
             let purchased = {purchasedHere:0, notPurchasedHere:0};
             for(let x of data.appointments){
                 if(mostFrequentService[x["description"]] === undefined){
@@ -36,9 +40,22 @@ class DataList extends React.Component {
                 } else {
                     purchased["notPurchasedHere"]++
                 }
+
+                if(x["manufacturer"] !== null){
+                    if(brandMostServiced[x["manufacturer"]] === undefined){
+                        brandMostServiced[x["manufacturer"]] = 0
+                    }
+                    brandMostServiced[x["manufacturer"]]++
+                }
+                if(x["model"] !== null){
+                    if(modelMostServiced[x["model"]] === undefined){
+                        modelMostServiced[x["model"]] = 0
+                    }
+                    modelMostServiced[x["model"]]++
+                }
             }
-
-
+            this.setState({ modelMostServiced: modelMostServiced })
+            this.setState({ brandMostServiced: brandMostServiced })
             this.setState({ purchasedHere: purchased })
             this.setState({ mostFrequentServices: mostFrequentService })
             this.setState({ appointments: data.appointments })
@@ -90,6 +107,48 @@ class DataList extends React.Component {
                             return(
                                 <tr key={key}>
                                     <td>{title}</td>
+                                    <td>{value}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+                <div className="mt-5">
+                    <h2>Vehicle Brands</h2>
+                </div>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vehicle Brand</th>
+                            <th>Number of appointments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Object.entries(this.state.brandMostServiced).map(([key, value]) => {
+                            return(
+                                <tr key={key}>
+                                    <td>{key}</td>
+                                    <td>{value}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+                <div className="mt-5">
+                    <h2>Vehicle Models</h2>
+                </div>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vehicle Models</th>
+                            <th>Number of appointments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Object.entries(this.state.modelMostServiced).map(([key, value]) => {
+                            return(
+                                <tr key={key}>
+                                    <td>{key}</td>
                                     <td>{value}</td>
                                 </tr>
                             )
