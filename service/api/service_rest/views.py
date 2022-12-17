@@ -38,8 +38,10 @@ class ServiceAppointmentsListEncoder(ModelEncoder):
         "purchased",
         "status",
         "id",
+        "model",
+        "year",
+        "manufacturer",
         "technician",
-
     ]
     encoders = {
         "technician": TechnicianEncoder(),
@@ -63,7 +65,11 @@ def api_list_service_appointments(request, input_vin=None):
         try:
             try:
                 purchase = InventoryVinsVO.objects.get(vin_vo=content["vin"])
+                print(purchase.model)
                 content["purchased"] = True
+                content["model"] = purchase.model
+                content["manufacturer"] = purchase.manufacturer
+                content["year"] = purchase.year
             except InventoryVinsVO.DoesNotExist:
                 content["purchased"] = False
             technician = Technician.objects.get(id=content["technician"])

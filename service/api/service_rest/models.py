@@ -26,6 +26,9 @@ class ServiceAppointment(models.Model):
     description = models.TextField()
     purchased = models.BooleanField()
     status = models.CharField(max_length=100, default="Active")
+    model = models.CharField(max_length=100, null=True)
+    manufacturer = models.CharField(max_length=100, null=True)
+    year = models.PositiveSmallIntegerField(null=True)
     technician = models.ForeignKey(
         Technician,
         related_name="technician",

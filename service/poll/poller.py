@@ -21,7 +21,7 @@ def get_inventory_vins():
             model=auto["model"]["name"],
             year=auto["year"],
             manufacturer=auto["model"]["manufacturer"]["name"],
-            defaults={"vin_vo": auto["vin"]},
+            vin_vo=auto["vin"],
             )
 
 
