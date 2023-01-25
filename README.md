@@ -9,7 +9,7 @@ Team:
 
  To run this application, start by forking the main branch of this project.
 
- https://gitlab.com/dfunnell/car-car
+ https://gitlab.com/dfunnell/trax
 
  Run the following commands in your terminal within the projects PWD.
 
