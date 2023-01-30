@@ -72,7 +72,7 @@ class SalesPersonForm extends React.Component {
                 <button className="btn btn-primary">Create</button>
               </form>
               <div className={messageClasses} id="success-message">
-                Congratulations! You created a sales perwson!
+                Congratulations! You created a sales person!
               </div>
             </div>
           </div>

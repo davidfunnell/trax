@@ -1,47 +1,3 @@
-# CarCar
-
-Team:
-
-* David Funnell - Service microservice
-* Tommy Mai - Sales microservice
-
-## Start Up Instructions
-
- To run this application, start by forking the main branch of this project.
-
- https://gitlab.com/dfunnell/car-car
-
- ![Fork from main instructions](./readme_images/fork_from_main.png)
-
- ![Fork instructions](./readme_images/fork_project.png)
-
- After successfully forking the project, clone the project to your local machine. We recommend you clone with HTTPS.
-
- ![Clone instructions](./readme_images/clone_project.png)
-
- In your terminal, CD into your projects folder and git clone the copied URL from the previous step.
-
- ![Clone git instructions](./readme_images/git_clone.png)
-
- Run the following commands in your terminal within the projects PWD.
-
-    docker volume create beta-data
-    docker-compose build
-    docker-compose up
-
-After successfully building and starting your containers, go to http://localhost:3000/ to view the application. We recommend you start by adding manufacturers, models and automobiles within the inventory tab. These added vehicles will be used to be able to create new service appointments within the service microservice and create new sales within the sales microservice.
-
- ![First steps](./readme_images/initial_steps.png)
-
-## Design
-Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
-
-![System Diagram](./readme_images/Microservice.png)
-
-## Inventory microservice
-
-The Inventory microservice is run on http://localhost:8100 on your local machine.
-
 ### API Help
 Below are a list of RESTful api endpoints that the Inventory microservice uses.
 
@@ -142,9 +98,6 @@ If you have have inserted a model id that does not exist, you will recieve a res
 	    "message": "Does not exist, Can't Delete"
     }
 
-## Service microservice
-
-The Service microservice is run on http://localhost:8080 on your local machine.
 
 ### API Help
 Below are a list of RESTful api endpoints that the Service microservice uses.
@@ -364,35 +317,6 @@ GET: http://localhost:8080/api/inventoryvo/
         ]
     }
 
-
-### Below are the models within the Service microservice:
-#### ServiceAppointment
-    vin             <- CharField(max_length=17)
-    owner_name      <- CharField(max_length=100)
-    date            <- DateField()
-    time            <- TimeField()
-    description     <- TextField()
-    purchased       <- BooleanField(True if Vin is in InvintoryVinsVO else False)
-    status          <- Charfield(max_length=100 Default="Active")
-    technician      <- ForeignKey to Technician Model
-
-vin, owner_name...etc are fields of the model.
-
-#### Technician
-    name                <- CharField(max_length=100)
-    employee_number     <- PositiveSmallIntegerField(unique=True)
-
-Name and employee_number are fields of the model.
-
-#### InventoryVinsVO
-    vin_vo          <- CharField(max_length=17, unique=True)
-    import_href     <- CharField(max_length=200)
-
-vin_vo and import_href are fields of the model.
-
-InventoryVinsVO is a value object that is storing polled data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint ""http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
-
-
 ## Sales microservice
 
 The Sales microservice is run on http://localhost:8090 on your local machine.
@@ -583,23 +507,3 @@ If you have have inserted a customer id that does not exist, you will recieve a 
     {
         "message": "Does not exist, Can't Delete"
     }
-
-### Below are the models within the Sales microservice:
-
-#### SalesPerson
-    name             <- CharField(max_length=100)
-    employee_number  <- PositiveSmallIntegerField(unique=True)
-
-#### Customer
-    name             <- CharField(max_length=17, unique=True)
-    address          <- CharField(max_length=200)
-    phone_number     <- CharField(max_length=15)
-
-#### SaleRecord
-    price            <- CharField(max_length=50)
-
-#### AutomobileVO
-    vin              <- CharField(max_length=17, unique=True)
-    import_href      <- CharField(max_length=100, unique=True, null=True)
-
-AutomobileVO is a value object that is storing polling data from the Inventory API. We are polling this data to keep all one-to-many relationship data within the microservice that is using it. We poll this data from the endpoint "http://inventory-api:8000/api/automobiles/" at a frequency of 60 seconds within the docker containers.
