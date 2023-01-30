@@ -23,8 +23,7 @@ After successfully building and starting your containers, go to http://localhost
 ## Design
 Below is a diagram of the app architecture. It shows our 3 microservices along with our React front-end running within docker and their port locations to your local.
 
-- [System Diagram](./readme_images/Microservice.png)
+- [System Diagram](.docs/readme_images/Microservice.png)
 
 - [API Design](docs/api-documentation.md)
 - [Data models](docs/data-models.md)
-
